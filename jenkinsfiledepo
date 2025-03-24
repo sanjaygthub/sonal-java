@@ -5,6 +5,30 @@ pipeline{
   }
 }
 stages{
-stage  
+stage('clone repo')  
+  {
+    steps{
+       git 'https://github.com/sanjaygthub/sonal-java.git'
+    }
+ }
+}
+stage('build code')
+  {
+    steps{
+      sh  'mvn package'
+    }
+  }  
+stage ('deploy code')
+  {
+    steps{
+      deploy adapters: [tomcat9(credentialsId: 'tom1', path: '', url: 'http://13.60.41.121:9090/')], contextPath: null, war: '**/*.war'
+    }
+  }
+
+
+
+
+
+
          
         
